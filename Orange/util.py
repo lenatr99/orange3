@@ -648,6 +648,11 @@ class Reprable:
         items = ", ".join(f"{f}={repr(v)}"
                           for f, _, v in self._reprable_items())
         return f"{name}({items})"
+    
+    def _to_json(obj):
+        data = {name: value for name, _, value in obj._reprable_items()}
+        data["__type__"] = obj.__class__.__name__
+        return data
 
 
 def wrap_callback(progress_callback, start=0, end=1):
